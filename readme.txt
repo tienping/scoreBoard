@@ -1,0 +1,1 @@
+This a project to show a display panel in web as well as a control panel on mobile devices, utilizing firebase database.
