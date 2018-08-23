@@ -2,40 +2,23 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { Route } from 'react-router-dom';
 
-import 'jest-styled-components';
-
-import { App, HershopTopbar } from '../index';
-import PrivateRoute from '../PrivateRoute';
+import Header from 'components/Header';
+import Footer from 'components/Footer';
+import App from '../index';
 
 describe('<App />', () => {
-    let app;
-    const isTrue = true;
-    beforeEach(() => {
-        app = shallow(<App authenticated={isTrue}></App>);
-    });
+  it('should render the header', () => {
+    const renderedComponent = shallow(<App />);
+    expect(renderedComponent.find(Header).length).toBe(1);
+  });
 
-    it('should show HershopTopbar', () => {
-        expect(app.find('#hershop-topbar-container').length).toEqual(1);
-    });
+  it('should render some routes', () => {
+    const renderedComponent = shallow(<App />);
+    expect(renderedComponent.find(Route).length).not.toBe(0);
+  });
 
-    it('should show HershopTopbar background colour based on theme colour', () => {
-        const rendered = shallow(<HershopTopbar theme={{ main_bg: 'salmon' }} />);
-        expect(rendered).toHaveStyleRule('background-color', 'salmon');
-    });
-
-    it('should show show HershopSideBar', () => {
-        expect(app.find('#hershop-sidebar-container').length).toEqual(1);
-    });
-
-    it('should show HershopContent', () => {
-        expect(app.find('#hershop-content-container').length).toEqual(1);
-    });
-
-    it('should render Routes and PrivateRoutes', (done) => {
-        const routes = app.find(Route).length;
-        const privateRoutes = app.find(PrivateRoute).length;
-        expect(routes).toBeGreaterThan(0);
-        expect(privateRoutes).toBeGreaterThan(0);
-        done();
-    });
+  it('should render the footer', () => {
+    const renderedComponent = shallow(<App />);
+    expect(renderedComponent.find(Footer).length).toBe(1);
+  });
 });

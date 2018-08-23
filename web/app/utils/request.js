@@ -1,5 +1,4 @@
 import 'whatwg-fetch';
-import { sessionService } from 'redux-react-session';
 
 /**
  * Parses the JSON returned by a network request
@@ -9,20 +8,27 @@ import { sessionService } from 'redux-react-session';
  * @return {object}          The parsed JSON from the request
  */
 function parseJSON(response) {
-    if (response.status === 204 || response.status === 205) {
-        return null;
-    }
+  if (response.status === 204 || response.status === 205) {
+    return null;
+  }
+  return response.json();
+}
 
-    try {
-        return response.json();
-    } catch (e) {
-        return {
-            success: false,
-            messages: [{
-                text: 'Please check your internet connection',
-            }],
-        };
-    }
+/**
+ * Checks if a network request came back fine, and throws an error if not
+ *
+ * @param  {object} response   A response from a network request
+ *
+ * @return {object|undefined} Returns either the response, or throws an error
+ */
+function checkStatus(response) {
+  if (response.status >= 200 && response.status < 300) {
+    return response;
+  }
+
+  const error = new Error(response.statusText);
+  error.response = response;
+  throw error;
 }
 
 /**
@@ -34,17 +40,7 @@ function parseJSON(response) {
  * @return {object}           The response data
  */
 export default function request(url, options) {
-    return fetch(url, options)
-        .then(parseJSON)
-        .catch(parseJSON);
-}
-
-export function loadSession() {
-    return sessionService.loadSession()
-        .then((data) => (data));
-        // Catch was removed here
-        // it should be
-        // .catch((err) => {
-        //     throw err;
-        // });
+  return fetch(url, options)
+    .then(checkStatus)
+    .then(parseJSON);
 }

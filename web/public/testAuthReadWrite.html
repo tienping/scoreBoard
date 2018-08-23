@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Welcome to Firebase Hosting</title>
+
+        <!-- update the version number as needed -->
+        <script defer src="/__/firebase/5.3.1/firebase-app.js"></script>
+        <!-- include only the Firebase features as you need -->
+        <script defer src="/__/firebase/5.3.1/firebase-auth.js"></script>
+        <script defer src="/__/firebase/5.3.1/firebase-database.js"></script>
+        <script defer src="/__/firebase/5.3.1/firebase-messaging.js"></script>
+        <script defer src="/__/firebase/5.3.1/firebase-storage.js"></script>
+        <!-- initialize the SDK after all desired features are loaded -->
+
+
+        <script src="https://cdn.firebase.com/libs/firebaseui/3.1.1/firebaseui.js"></script>
+        <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.1.1/firebaseui.css" />
+
+        <script defer src="/__/firebase/init.js"></script>
+
+        <style media="screen">
+            body { background: #ECEFF1; color: rgba(0,0,0,0.87); font-family: Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
+            #message { background: white; max-width: 360px; margin: 100px auto 16px; padding: 32px 24px; border-radius: 3px; }
+            #message h2 { color: #ffa100; font-weight: bold; font-size: 16px; margin: 0 0 8px; }
+            #message h1 { font-size: 22px; font-weight: 300; color: rgba(0,0,0,0.6); margin: 0 0 16px;}
+            #message p { line-height: 140%; margin: 16px 0 24px; font-size: 14px; }
+            #message a { display: block; text-align: center; background: #039be5; text-transform: uppercase; text-decoration: none; color: white; padding: 16px; border-radius: 4px; }
+            #message, #message a { box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); }
+            #load { color: rgba(0,0,0,0.4); text-align: center; font-size: 13px; }
+            @media (max-width: 600px) {
+                body, #message { margin-top: 0; background: white; box-shadow: none; }
+                body { border-top: 16px solid #ffa100; }
+            }
+        </style>
+    </head>
+    <body>
+        <div id="message">
+            <h2>Welcome</h2>
+            <h1>Firebase Hosting Setup Complete</h1>
+            <p>You're seeing this because you've successfully setup Firebase Hosting. Now it's time to go build something extraordinary!</p>
+            <a target="_blank" href="https://firebase.google.com/docs/hosting/">Open Hosting Documentation</a>
+        </div>
+        <p id="load">Firebase SDK Loading&hellip;</p>
+        <p id="output">Output: original text&hellip;</p>
+        <input type="text" id="textInput">
+        <button onclick="savedata()">Send</button>
+
+        <div id="firebaseui-auth-container"></div>
+        <div id="loader">Loading...</div>
+
+        <script>
+            var savedata = null;
+
+            document.addEventListener('DOMContentLoaded', function() {
+                // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
+                // // The Firebase SDK is initialized and available here!
+                //
+                // firebase.auth().onAuthStateChanged(user => { });
+                // firebase.database().ref('/path/to/ref').on('value', snapshot => { });
+                // firebase.messaging().requestPermission().then(() => { });
+                // firebase.storage().ref('/path/to/ref').getDownloadURL().then(() => { });
+                //
+                if (!firebase.app()) {
+                    var config = {
+                        authDomain: "test-954a8.firebaseapp.com",
+                        databaseURL: "https://test-954a8.firebaseio.com",
+                        projectId: "test-954a8",
+                        storageBucket: "test-954a8.appspot.com",
+                        messagingSenderId: "544079097273"
+                    };
+                    firebase.initializeApp(config);
+                }
+                var ref = firebase.database().ref();
+
+                var output = document.getElementById('output');
+                var input = document.getElementById('textInput');
+                savedata = function savedata(){
+                    var message = input.value;
+
+                    var now = new Date;
+                    var time = now.getHours() + ':' + now.getMinutes();
+                    var index = 'product-' + parseInt(Math.random()*10);
+                    try {
+                        ref.child(index).transaction(function(currentValue) {
+                            return currentValue;
+                        }, function(err, committed, ss) {
+                            if(err) {
+                               alert(err.message);
+                            }
+                            else if(committed) {
+                                ref.child(index).set({ time: time, text: message});
+                            }
+                        });
+                    } catch(e) {
+                        console.log(e);
+                    }
+                    input.value = '';
+                }
+
+                ref.on("value", function(snapshot){
+                    output.innerHTML = JSON.stringify(snapshot.val(), null, 2);
+                });
+
+                var uiConfig = {
+                    callbacks: {
+                        signInSuccessWithAuthResult: function(authResult, redirectUrl) {
+                            alert('sign in success');
+                            // default persistence is LOCAL
+                            /* firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+                                .then(function() {
+                                    return
+                                })
+                                .catch(function(error) {
+                                  // Handle Errors here.
+                                  var errorCode = error.code;
+                                  var errorMessage = error.message;
+                                });
+                            */
+                            return false;
+                        },
+                        /* signInFailure: function() {
+                            alert('sign in failed');
+                        }, */
+                        uiShown: function() {
+                            document.getElementById('loader').style.display = 'none';
+                        },
+                        signInFailure: function(error) {
+                          if (error.code != 'firebaseui/anonymous-upgrade-merge-conflict') {
+                            return Promise.resolve();
+                          }
+                          var cred = error.credential;
+                          // Copy data from anonymous user to permanent user and delete anonymous
+                          // user.
+                          // Finish sign-in after data is copied.
+                          return firebase.auth().signInWithCredential(cred);
+                        }
+                    },
+                    autoUpgradeAnonymousUsers: true,
+                    signInFlow: 'popup',
+                    // signInSuccessUrl: '/',
+                    signInOptions: [
+                        {
+                            provider: firebase.auth.EmailAuthProvider.PROVIDER_ID,
+                            requireDisplayName: true
+                        },
+                        firebase.auth.GoogleAuthProvider.PROVIDER_ID
+                    ],
+                    tosUrl: '<your-tos-url>',
+                    privacyPolicyUrl: '<your-privacy-policy-url>'
+                };
+
+                var ui = new firebaseui.auth.AuthUI(firebase.auth());
+                ui.start('#firebaseui-auth-container', uiConfig);
+
+                firebase.auth().onAuthStateChanged(function(user) {
+                    if (user) {
+                        document.getElementById('loader').style.display = 'none';
+                        document.getElementById('firebaseui-auth-container').style.display = 'none';
+                    } else {
+                        // User is signed out.
+                    }
+                });
+
+                // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
+
+                try {
+                    let app = firebase.app();
+                    let features = ['auth', 'database', 'messaging', 'storage'].filter(feature => typeof app[feature] === 'function');
+                    document.getElementById('load').innerHTML = `Firebase SDK loaded with ${features.join(', ')}`;
+                } catch (e) {
+                    console.error(e);
+                    document.getElementById('load').innerHTML = 'Error loading the Firebase SDK, check the console.';
+                }
+            });
+        </script>
+    </body>
+</html>

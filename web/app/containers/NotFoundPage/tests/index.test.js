@@ -1,11 +1,26 @@
+/**
+ * Testing the NotFoundPage
+ */
+
 import React from 'react';
-import { mount } from 'enzyme';
+import { shallow } from 'enzyme';
+import { FormattedMessage } from 'react-intl';
 
-import NotFoundPage from '../index';
+import H1 from 'components/H1';
+import NotFound from '../index';
 
-describe('<NotFoundPage />', () => {
-    it('should render the page with the message "The URL is invalid."', () => {
-        const page = mount(<NotFoundPage />);
-        expect(page.html()).toContain('The URL is invalid.');
-    });
+describe('<NotFound />', () => {
+  it('should render the Page Not Found text', () => {
+    const renderedComponent = shallow(<NotFound />);
+    expect(
+      renderedComponent.contains(
+        <H1>
+          <FormattedMessage
+            id="boilerplate.containers.NotFoundPage.header"
+            defaultMessage="Page not found."
+          />
+        </H1>,
+      ),
+    ).toEqual(true);
+  });
 });

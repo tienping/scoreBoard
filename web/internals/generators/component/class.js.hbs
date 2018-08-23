@@ -1,10 +1,11 @@
 /**
-*
-* {{ properCase name }}
-*
-*/
+ *
+ * {{ properCase name }}
+ *
+ */
 
 import React from 'react';
+// import PropTypes from 'prop-types';
 // import styled from 'styled-components';
 
 {{#if wantMessages}}
@@ -12,20 +13,19 @@ import { FormattedMessage } from 'react-intl';
 import messages from './messages';
 {{/if}}
 
-class {{ properCase name }} extends {{{ type }}} { // eslint-disable-line react/prefer-stateless-function
-    render() {
-        return (
-            <div>
-            {{#if wantMessages}}
-                <FormattedMessage {...messages.header} />
-            {{/if}}
-            </div>
-        );
-    }
+/* eslint-disable react/prefer-stateless-function */
+class {{ properCase name }} extends {{{ type }}} {
+  render() {
+    return (
+      <div>
+      {{#if wantMessages}}
+        <FormattedMessage {...messages.header} />
+      {{/if}}
+      </div>
+    );
+  }
 }
 
-{{ properCase name }}.propTypes = {
-
-};
+{{ properCase name }}.propTypes = {};
 
 export default {{ properCase name }};
