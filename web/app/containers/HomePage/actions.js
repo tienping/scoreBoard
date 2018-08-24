@@ -15,7 +15,7 @@
  *    }
  */
 
-import { CHANGE_USERNAME } from './constants';
+import { ADD_TODO, COMPLETE_TODO, FETCH_TODO, FETCH_FIREBASE_SUCCSS } from './constants';
 
 /**
  * Changes the input field of the form
@@ -24,9 +24,30 @@ import { CHANGE_USERNAME } from './constants';
  *
  * @return {object}    An action object with a type of CHANGE_USERNAME
  */
-export function changeUsername(name) {
+export function addTodo(response) {
   return {
-    type: CHANGE_USERNAME,
-    name,
+    type: ADD_TODO,
+    response,
+  };
+}
+
+export function completeTodo(response) {
+  return {
+    type: COMPLETE_TODO,
+    response,
+  };
+}
+
+export function fetchTodo(response) {
+  return {
+    type: FETCH_TODO,
+    response,
+  };
+}
+
+export function fetchFirebaseSuccess(response) {
+  return {
+      type: FETCH_FIREBASE_SUCCSS,
+      payload: response,
   };
 }

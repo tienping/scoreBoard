@@ -11,18 +11,17 @@
  */
 import { fromJS } from 'immutable';
 
-import { CHANGE_USERNAME } from './constants';
+import { ADD_TODO, COMPLETE_TODO, FETCH_TODO, FETCH_FIREBASE_SUCCSS } from './constants';
 
 // The initial state of the App
 export const initialState = fromJS({
-  username: '',
+  data: '',
 });
 
 function homeReducer(state = initialState, action) {
   switch (action.type) {
-    case CHANGE_USERNAME:
-      // Delete prefixed '@' from the github username
-      return state.set('username', action.name.replace(/@/gi, ''));
+    case FETCH_FIREBASE_SUCCSS:
+      return state.set('data', action.payload || { entry: 'no data' });
     default:
       return state;
   }

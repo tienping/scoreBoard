@@ -3,11 +3,12 @@
  */
 
 import { createSelector } from 'reselect';
-import { initialState } from './reducer';
 
-const selectHome = state => state.get('home', initialState);
+const selectHomeDomain = state => state.get('home');
 
-const makeSelectUsername = () =>
-  createSelector(selectHome, homeState => homeState.get('username'));
+const makeSelectFirebaseData = () => createSelector(
+  selectHomeDomain,
+  (substate) => substate.get('data')
+);
 
-export { selectHome, makeSelectUsername };
+export { selectHomeDomain, makeSelectFirebaseData };

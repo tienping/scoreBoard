@@ -9,4 +9,7 @@
  * export const YOUR_ACTION_CONSTANT = 'yourproject/YourContainer/YOUR_ACTION_CONSTANT';
  */
 
-export const CHANGE_USERNAME = 'boilerplate/Home/CHANGE_USERNAME';
+export const ADD_TODO = 'scoreboard/Home/ADD_TODO';
+export const COMPLETE_TODO = 'scoreboard/Home/COMPLETE_TODO';
+export const FETCH_TODO = 'scoreboard/Home/FETCH_TODO';
+export const FETCH_FIREBASE_SUCCSS = 'scoreboard/Home/FETCH_FIREBASE_SUCCSS';
