@@ -15,7 +15,7 @@
  *    }
  */
 
-import { ADD_TODO, COMPLETE_TODO, FETCH_TODO, FETCH_FIREBASE_SUCCSS } from './constants';
+import { ADD_TODO, COMPLETE_TODO, FETCH_FIREBASE_SUCCSS } from './constants';
 
 /**
  * Changes the input field of the form
@@ -34,13 +34,6 @@ export function addTodo(response) {
 export function completeTodo(response) {
   return {
     type: COMPLETE_TODO,
-    response,
-  };
-}
-
-export function fetchTodo(response) {
-  return {
-    type: FETCH_TODO,
     response,
   };
 }

@@ -21,16 +21,24 @@ import CenteredSection from './CenteredSection';
 import { makeSelectFirebaseData } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-import { fetchTodo, addTodo } from './actions';
+import { dataRef } from "./../../utils/firebase";
 
 /* eslint-disable react/prefer-stateless-function */
 export class HomePage extends React.PureComponent {
-  /**
-   * when initial state username is not null, submit the form to load repos
-   */
+  state = {
+      data: {},
+  }
+
   componentWillMount() {
-    this.props.dispatch(fetchTodo({}));
-    // this.props.dispatch(addTodo('asdfsadfds'));
+    const _this = this;
+    function updateData(snapshot) {
+        _this.setState({ data: snapshot.val() });
+    }
+    dataRef.on('value', function (snapshot) {
+        if (snapshot.exists()) {
+            updateData(snapshot);
+        }
+      });
   }
 
   handleSubmit = (e) => {
@@ -42,7 +50,9 @@ export class HomePage extends React.PureComponent {
   }
 
   render() {
-    const { data } = this.props;
+    const { data } = this.state;
+
+    const groupColor = ['gray', 'tomato', 'violet', 'lightgreen'];
 
     return (
         <article>
@@ -55,7 +65,7 @@ export class HomePage extends React.PureComponent {
                                 <div>
                                     <Chart width={600} height={250} series={data.groups} minY={0}>
                                         <Bars
-                                            colors={['gray', 'tomato', 'violet', 'lightgreen']}
+                                            colors={groupColor}
                                             groupPadding='10%'
                                             innerPadding='10%'
                                         />
@@ -74,10 +84,22 @@ export class HomePage extends React.PureComponent {
                                         borderTop: '2px solid chocolate',
                                     }}
                                 >
-                                    <span>{data.groups[0].label}</span>
-                                    <span>{data.groups[1].label}</span>
-                                    <span>{data.groups[2].label}</span>
-                                    <span>{data.groups[3].label}</span>
+                                    <div>
+                                        <div class="score-value" style={{ color: groupColor[0], fontSize: 30, fontWeight: '700' }}>{data.groups[0].data[0]}</div>
+                                        <div>{data.groups[0].label}</div>
+                                    </div>
+                                    <div>
+                                        <div class="score-value" style={{ color: groupColor[1], fontSize: 30, fontWeight: '700' }}>{data.groups[1].data[0]}</div>
+                                        <div>{data.groups[1].label}</div>
+                                    </div>
+                                    <div>
+                                        <div class="score-value" style={{ color: groupColor[2], fontSize: 30, fontWeight: '700' }}>{data.groups[2].data[0]}</div>
+                                        <div>{data.groups[2].label}</div>
+                                    </div>
+                                    <div>
+                                        <div class="score-value" style={{ color: groupColor[3], fontSize: 30, fontWeight: '700' }}>{data.groups[3].data[0]}</div>
+                                        <div>{data.groups[3].label}</div>
+                                    </div>
                                 </div>
                             </div>
                             :
