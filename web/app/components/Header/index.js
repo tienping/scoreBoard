@@ -37,7 +37,8 @@ class Header extends React.Component {
           </HeaderLink>
         </NavBar> */}
         <CenteredSection>
-          <H1>主日学</H1>
+          {/* <H1>主日学</H1> */}
+          <H1 style={{ paddingTop: '70px' }}>分数表</H1>
         </CenteredSection>
       </div>
     );

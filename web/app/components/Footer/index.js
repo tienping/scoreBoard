@@ -7,12 +7,13 @@ import Wrapper from './Wrapper';
 import messages from './messages';
 
 function Footer() {
-  return (
-    <Wrapper>
-      <section>{/* <LocaleToggle /> */}</section>
-      <section />
-    </Wrapper>
-  );
+  return null;
+  // (
+  //   <Wrapper>
+  //     <section>{/* <LocaleToggle /> */}</section>
+  //     <section />
+  //   </Wrapper>
+  // );
 }
 
 export default Footer;
