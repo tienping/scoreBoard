@@ -44,32 +44,51 @@ export class HomePage extends React.PureComponent {
   render() {
     const { data } = this.props;
 
-    const series = [
-      {
-        data: [1],
-      },
-      {
-        data: [2],
-      },
-      {
-        data: [4],
-      },
-    ];
-
     return (
-      <article>
-        <Helmet>
-          <title>Home Page</title>
-        </Helmet>
-        <div>
-          <div>{JSON.stringify(this.props.data)}</div>
-          <CenteredSection>
-            <Chart width={600} height={250} series={series} minY={0}>
-              <Bars colors={['red', 'green', 'blue']} />
-            </Chart>
-          </CenteredSection>
-        </div>
-      </article>
+        <article>
+            <Helmet />
+            <div>
+                <CenteredSection>
+                    {
+                        data && data.groups ?
+                            <div>
+                                <div>
+                                    <Chart width={600} height={250} series={data.groups} minY={0}>
+                                        <Bars
+                                            colors={['gray', 'tomato', 'violet', 'lightgreen']}
+                                            groupPadding='10%'
+                                            innerPadding='10%'
+                                        />
+                                    </Chart>
+                                </div>
+                                <div
+                                    style={{
+                                        width: '600px',
+                                        display: 'flex',
+                                        flexDirection: 'row',
+                                        justifyContent: 'space-around',
+                                        padding: '10px 3%',
+                                        margin: '0px auto',
+                                        left: '0',
+                                        right: '0',
+                                        borderTop: '2px solid chocolate',
+                                    }}
+                                >
+                                    <span>{data.groups[0].label}</span>
+                                    <span>{data.groups[1].label}</span>
+                                    <span>{data.groups[2].label}</span>
+                                    <span>{data.groups[3].label}</span>
+                                </div>
+                            </div>
+                            :
+                            <div>
+                                <img height="350" src={require('./../../images/downloading.gif')} />
+                            </div>
+                    }
+
+                </CenteredSection>
+            </div>
+        </article>
     );
   }
 }
