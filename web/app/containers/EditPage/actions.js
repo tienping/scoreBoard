@@ -4,10 +4,11 @@
  *
  */
 
-import { DEFAULT_ACTION } from './constants';
+import { ADD_ENTRY } from './constants';
 
-export function defaultAction() {
+export function addEntry(data) {
   return {
-    type: DEFAULT_ACTION,
+    type: ADD_ENTRY,
+    data,
   };
 }

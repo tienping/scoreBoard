@@ -4,4 +4,4 @@
  *
  */
 
-export const DEFAULT_ACTION = 'app/EditPage/DEFAULT_ACTION';
+export const ADD_ENTRY = 'app/EditPage/ADD_ENTRY';
