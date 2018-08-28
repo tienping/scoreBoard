@@ -17,7 +17,7 @@ import injectSaga from 'utils/injectSaga';
 
 import { Chart, Bars } from 'rumble-charts';
 
-import CenteredSection from './CenteredSection';
+import CenteredSection from 'components/CenteredSection';
 import { makeSelectFirebaseData } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -25,94 +25,86 @@ import { dataRef } from "./../../utils/firebase";
 
 /* eslint-disable react/prefer-stateless-function */
 export class HomePage extends React.PureComponent {
-  state = {
-      data: {},
-  }
-
-  componentWillMount() {
-    const _this = this;
-    function updateData(snapshot) {
-        _this.setState({ data: snapshot.val() });
+    state = {
+        data: {},
     }
-    dataRef.on('value', function (snapshot) {
-        if (snapshot.exists()) {
-            updateData(snapshot);
+
+    componentWillMount() {
+        const _this = this;
+        function updateData(snapshot) {
+            _this.setState({ data: snapshot.val() });
         }
-      });
-  }
+        dataRef.on('value', function (snapshot) {
+            if (snapshot.exists()) {
+                updateData(snapshot);
+            }
+        });
+    }
 
-  handleSubmit = (e) => {
-    e.preventDefault();
-    this.firebaseRef.push({
-      text: this.state.text
-    });
-    this.setState({text: ""});
-  }
+    render() {
+        const { data } = this.state;
 
-  render() {
-    const { data } = this.state;
+        const groupColor = ['red', 'gold', 'blue', 'green'];
 
-    const groupColor = ['gray', 'tomato', 'violet', 'lightgreen'];
-
-    return (
-        <article>
-            <Helmet />
-            <div>
-                <CenteredSection>
-                    {
-                        data && data.groups ?
-                            <div>
+        return (
+            <article>
+                <Helmet />
+                <div>
+                    <CenteredSection>
+                        {
+                            data && data.groups ?
                                 <div>
-                                    <Chart width={600} height={250} series={data.groups} minY={0}>
-                                        <Bars
-                                            colors={groupColor}
-                                            groupPadding='10%'
-                                            innerPadding='10%'
-                                        />
-                                    </Chart>
+                                    <div>
+                                        <Chart width={600} height={250} series={data.groups} minY={0}>
+                                            <Bars
+                                                colors={groupColor}
+                                                groupPadding='10%'
+                                                innerPadding='10%'
+                                            />
+                                        </Chart>
+                                    </div>
+                                    <div
+                                        style={{
+                                            width: '600px',
+                                            display: 'flex',
+                                            flexDirection: 'row',
+                                            justifyContent: 'space-around',
+                                            padding: '10px 3%',
+                                            margin: '0px auto',
+                                            left: '0',
+                                            right: '0',
+                                            borderTop: '5px solid black',
+                                        }}
+                                    >
+                                        <div>
+                                            <div class="score-value" style={{ color: groupColor[0], fontSize: 30, fontWeight: '700' }}>{data.groups[0].data[0]}</div>
+                                            <div>{data.groups[0].label}</div>
+                                        </div>
+                                        <div>
+                                            <div class="score-value" style={{ color: groupColor[1], fontSize: 30, fontWeight: '700' }}>{data.groups[1].data[0]}</div>
+                                            <div>{data.groups[1].label}</div>
+                                        </div>
+                                        <div>
+                                            <div class="score-value" style={{ color: groupColor[2], fontSize: 30, fontWeight: '700' }}>{data.groups[2].data[0]}</div>
+                                            <div>{data.groups[2].label}</div>
+                                        </div>
+                                        <div>
+                                            <div class="score-value" style={{ color: groupColor[3], fontSize: 30, fontWeight: '700' }}>{data.groups[3].data[0]}</div>
+                                            <div>{data.groups[3].label}</div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div
-                                    style={{
-                                        width: '600px',
-                                        display: 'flex',
-                                        flexDirection: 'row',
-                                        justifyContent: 'space-around',
-                                        padding: '10px 3%',
-                                        margin: '0px auto',
-                                        left: '0',
-                                        right: '0',
-                                        borderTop: '2px solid chocolate',
-                                    }}
-                                >
-                                    <div>
-                                        <div class="score-value" style={{ color: groupColor[0], fontSize: 30, fontWeight: '700' }}>{data.groups[0].data[0]}</div>
-                                        <div>{data.groups[0].label}</div>
-                                    </div>
-                                    <div>
-                                        <div class="score-value" style={{ color: groupColor[1], fontSize: 30, fontWeight: '700' }}>{data.groups[1].data[0]}</div>
-                                        <div>{data.groups[1].label}</div>
-                                    </div>
-                                    <div>
-                                        <div class="score-value" style={{ color: groupColor[2], fontSize: 30, fontWeight: '700' }}>{data.groups[2].data[0]}</div>
-                                        <div>{data.groups[2].label}</div>
-                                    </div>
-                                    <div>
-                                        <div class="score-value" style={{ color: groupColor[3], fontSize: 30, fontWeight: '700' }}>{data.groups[3].data[0]}</div>
-                                        <div>{data.groups[3].label}</div>
-                                    </div>
+                                :
+                                <div>
+                                    <img height="350" src={require('./../../images/downloading.gif')} />
                                 </div>
-                            </div>
-                            :
-                            <div>
-                                <img height="350" src={require('./../../images/downloading.gif')} />
-                            </div>
-                    }
+                        }
 
-                </CenteredSection>
-            </div>
-        </article>
-    );
-  }
+                    </CenteredSection>
+                </div>
+            </article>
+        );
+    }
 }
 
 HomePage.propTypes = {
