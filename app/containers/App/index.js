@@ -31,7 +31,7 @@ export default function App() {
     return (
         <AppWrapper>
             <Helmet titleTemplate="%s - ScoreBoard" defaultTitle="ScoreBoard">
-              <meta name="description" content="A React.js Boilerplate application" />
+                <meta name="description" content="A React.js Boilerplate application" />
             </Helmet>
             <Header />
             <Switch>

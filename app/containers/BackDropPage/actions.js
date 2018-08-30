@@ -26,8 +26,8 @@ import { FETCH_FIREBASE_SUCCSS } from './constants';
  */
 
 export function fetchFirebaseSuccess(response) {
-  return {
-      type: FETCH_FIREBASE_SUCCSS,
-      payload: response,
-  };
+    return {
+        type: FETCH_FIREBASE_SUCCSS,
+        payload: response,
+    };
 }
