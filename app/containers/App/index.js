@@ -12,6 +12,7 @@ import styled from 'styled-components';
 import { Switch, Route } from 'react-router-dom';
 
 import HomePage from 'containers/HomePage/Loadable';
+import BackDropPage from 'containers/BackDropPage/Loadable';
 import EditPage from 'containers/EditPage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import Header from 'components/Header';
@@ -27,18 +28,19 @@ const AppWrapper = styled.div`
 `;
 
 export default function App() {
-  return (
-    <AppWrapper>
-      <Helmet titleTemplate="%s - ScoreBoard" defaultTitle="ScoreBoard">
-        <meta name="description" content="A React.js Boilerplate application" />
-      </Helmet>
-      <Header />
-      <Switch>
-        <Route exact path="/" component={HomePage} />
-        <Route path="/edit" component={EditPage} />
-        <Route path="" component={NotFoundPage} />
-      </Switch>
-      <Footer />
-    </AppWrapper>
-  );
+    return (
+        <AppWrapper>
+            <Helmet titleTemplate="%s - ScoreBoard" defaultTitle="ScoreBoard">
+              <meta name="description" content="A React.js Boilerplate application" />
+            </Helmet>
+            <Header />
+            <Switch>
+                <Route exact path="/" component={HomePage} />
+                <Route path="/edit" component={EditPage} />
+                <Route path="/display" component={BackDropPage} />
+                <Route path="" component={NotFoundPage} />
+            </Switch>
+            <Footer />
+        </AppWrapper>
+    );
 }
