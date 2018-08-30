@@ -46,10 +46,10 @@
     "test:watch": "cross-env NODE_ENV=test jest --watchAll",
     "coveralls": "cat ./coverage/lcov.info | coveralls",
     "prettify": "prettier --write",
-    "pre-github-deploy": "yarn run build",
+    "pre-github-deploy": "npm run build",
     "github-deploy": "gh-pages -d build",
-    "heroku-postbuild": "yarn run build",
-    "prebuild": "yarn run build:clean"
+    "heroku-postbuild": "npm run build",
+    "prebuild": "npm run build:clean"
   },
   "lint-staged": {
     "*.js": [
