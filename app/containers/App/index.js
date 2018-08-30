@@ -37,7 +37,7 @@ export default function App() {
             <Switch>
                 <Route exact path="/" component={HomePage} />
                 <Route path="/edit" component={EditPage} />
-                <Route path="/display" component={BackDropPage} />
+                <Route path="/backdrop" component={BackDropPage} />
                 <Route path="" component={NotFoundPage} />
             </Switch>
             <Footer />
