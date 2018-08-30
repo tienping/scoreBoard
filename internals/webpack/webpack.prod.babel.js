@@ -9,7 +9,7 @@ module.exports = require('./webpack.base.babel')({
   mode: 'production',
 
   // In production, we skip all hot-reloading stuff
-  entry: [path.join(process.cwd())],
+  entry: [path.join(process.cwd(), 'app/App.js')],
 
   // Utilize long-term caching by adding content hashes (not compilation hashes) to compiled assets
   output: {
