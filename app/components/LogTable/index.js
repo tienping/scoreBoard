@@ -36,9 +36,9 @@ class LogTable extends React.PureComponent {
                                                     style={{  }}
                                                     grid={{ gutter: 16, xs: 1, sm: 1, md: 1, lg: 1, xl: 1, xxl: 1 }}
                                                     dataSource={group.log.reverse()}
-                                                    renderItem={(item) => (
+                                                    renderItem={(item, index) => (
                                                         <List.Item
-                                                            className="animated rubberBand"
+                                                            // className="animated rubberBand"
                                                             style={{
                                                                 textAlign: 'left',
                                                                 background: 'white',
@@ -49,7 +49,7 @@ class LogTable extends React.PureComponent {
                                                             }}
                                                         >
                                                             <div className="demo-loading-container" style={{  }}>
-                                                                <div style={{ fontWeight: 700, fontSize: 18, color: item.value && item.value > 0 ? '#0C0' : '#F00' }}>{`${ item.value && item.value > 0 ? '+' : ''}${item.value || 0}`}</div>
+                                                                <div style={{ fontWeight: 700, fontSize: 12, color: item.value && item.value > 0 ? '#0C0' : '#F00' }}>{`${ item.value && item.value > 0 ? '+' : ''}${item.value || 0}`}</div>
                                                                 <div style={{ fontSize: '70%', color: 'black' }}>{item.message || ''}</div>
                                                                 <div style={{ fontSize: '70%', color: '#AAA', position: 'absolute', top: 5, right: 5 }}>{item.time || ''}</div>
                                                             </div>

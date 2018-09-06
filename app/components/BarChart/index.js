@@ -6,7 +6,6 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-const Component = React.Component;
 const CanvasJSReact = require('./canvasjs.react');
 const CanvasJS = CanvasJSReact.CanvasJS;
 const CanvasJSChart = CanvasJSReact.CanvasJSChart;
@@ -14,10 +13,17 @@ const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 /* eslint-disable react/prefer-stateless-function */
 class BarChart extends React.PureComponent {
-    render() {
-        const { list } = this.props;
+    state = {
+        chart: null,
+        data: this.props.list,
+    }
 
-        const options = {
+    componentWillReceiveProps(nextProps) {
+        this.setState({ data: nextProps.list });
+    }
+
+    render() {
+        const options= {
             animationEnabled: true,
             theme: "light1", // "light1", "dark1", "dark2"
             title: {
@@ -31,22 +37,19 @@ class BarChart extends React.PureComponent {
                 // indexLabel: "{y}", //Shows y value on all Data Points
                 indexLabel: "{y}",
                 indexLabelFontColor: "black",
-                indexLabelFontSize: 35,
-                dataPoints: list,
-                // dataPoints: [
-                //     { "label":"Akismet Anti-Spam","y":5000000, color: 'red' },
-                //     { "label":"Jetpack","y":4000000},
-                //     { "label":"WP Super Cache","y":2000000},
-                //     { "label":"bbPress","y":300000},
-                // ],
+                indexLabelFontSize: 20,
+                dataPoints: this.state.data,
+                // dataPoints: this.props.list,
             }],
         }
-
         return (
             <div style={{ position: 'relative' }}>
                 <CanvasJSChart
                     options = {options}
-                    /* onRef={ref => this.chart = ref} */
+                    // options = {this.state.options}
+                    onRef={(ref) => {
+                        this.state.chart = ref;
+                    }}
                 />
                 {/* You can get reference to the chart instance as shown above using onRef. This allows you to access all chart properties and methods */}
                 <div className="ads-cover" style={{ position: 'absolute', backgroundColor: 'white', height: 10, width: '100%', bottom: 0 }}></div>

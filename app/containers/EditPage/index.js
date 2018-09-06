@@ -54,6 +54,7 @@ export class EditPage extends React.PureComponent {
         const currentTime = new Date();
 
         this.props.dispatch(addEntry({
+            id: currentTime.getTime(),
             groups: data.groups,
             addScoreRemark,
             addScoreGroup,
