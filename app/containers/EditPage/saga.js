@@ -4,17 +4,17 @@ import { dataRef } from "./../../utils/firebase";
 
 export function addingEntry(params) {
     const { groups, addScoreGroup, addScoreRemark, addScoreValue, index } = params.data
-    const value = {
-        group: eval(addScoreGroup),
+    const group =  eval(addScoreGroup);
+    const log = {
         message: addScoreRemark,
         value: eval(addScoreValue),
     };
-    dataRef.child("logs").child(index).set(value);
 
-    const newValue = groups[value.group].data[0] + value.value;
-    dataRef.child("groups").child(value.group).child('data').child(0).set(newValue);
+    const newValue = groups[group].data[0] + log.value;
+    dataRef.child("groups").child(group).child('data').child(0).set(newValue);
+    dataRef.child("groups").child(group).child('log').child(index).set(log);
 };
 
 export default function* editPageProcess() {
-  yield takeLatest(ADD_ENTRY, addingEntry);
+    yield takeLatest(ADD_ENTRY, addingEntry);
 }

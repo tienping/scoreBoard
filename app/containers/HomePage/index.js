@@ -18,6 +18,7 @@ import injectSaga from 'utils/injectSaga';
 import { Chart, Bars } from 'rumble-charts';
 
 import CenteredSection from 'components/CenteredSection';
+import LogTable from 'components/LogTable';
 import { makeSelectFirebaseData } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -45,6 +46,7 @@ export class HomePage extends React.PureComponent {
         const { data } = this.state;
 
         const groupColor = ['red', 'gold', 'blue', 'green'];
+        const chartWidth = window.innerWidth > 600 ? 600 : window.innerWidth* 0.8;
 
         return (
             <article>
@@ -55,7 +57,7 @@ export class HomePage extends React.PureComponent {
                             data && data.groups ?
                                 <div>
                                     <div>
-                                        <Chart width={600} height={250} series={data.groups} minY={0}>
+                                        <Chart width={chartWidth} height={250} series={data.groups} minY={0}>
                                             <Bars
                                                 colors={groupColor}
                                                 groupPadding='10%'
@@ -65,7 +67,7 @@ export class HomePage extends React.PureComponent {
                                     </div>
                                     <div
                                         style={{
-                                            width: '600px',
+                                            width: chartWidth,
                                             display: 'flex',
                                             flexDirection: 'row',
                                             justifyContent: 'space-around',
@@ -76,22 +78,17 @@ export class HomePage extends React.PureComponent {
                                             borderTop: '5px solid black',
                                         }}
                                     >
-                                        <div>
-                                            <div class="score-value" style={{ color: groupColor[0], fontSize: 30, fontWeight: '700' }}>{data.groups[0].data[0]}</div>
-                                            <div>{data.groups[0].label}</div>
-                                        </div>
-                                        <div>
-                                            <div class="score-value" style={{ color: groupColor[1], fontSize: 30, fontWeight: '700' }}>{data.groups[1].data[0]}</div>
-                                            <div>{data.groups[1].label}</div>
-                                        </div>
-                                        <div>
-                                            <div class="score-value" style={{ color: groupColor[2], fontSize: 30, fontWeight: '700' }}>{data.groups[2].data[0]}</div>
-                                            <div>{data.groups[2].label}</div>
-                                        </div>
-                                        <div>
-                                            <div class="score-value" style={{ color: groupColor[3], fontSize: 30, fontWeight: '700' }}>{data.groups[3].data[0]}</div>
-                                            <div>{data.groups[3].label}</div>
-                                        </div>
+                                        {
+                                            data.groups && data.groups.length ?
+                                                data.groups.map((group, index) => (
+                                                    <div>
+                                                        <div className="score-value" style={{ color: groupColor[index], fontSize: 30, fontWeight: '700' }}>{group.data[0]}</div>
+                                                        <div>{group.label}</div>
+                                                    </div>
+                                                ))
+                                                :
+                                                <div>No group found</div>
+                                        }
                                     </div>
                                 </div>
                                 :
@@ -99,6 +96,10 @@ export class HomePage extends React.PureComponent {
                                     <img height="350" src={require('./../../images/downloading.gif')} />
                                 </div>
                         }
+
+                        <hr style={{ margin: '10% 0' }} />
+
+                        <LogTable list={data.groups} />
 
                     </CenteredSection>
                 </div>
@@ -108,12 +109,12 @@ export class HomePage extends React.PureComponent {
 }
 
 HomePage.propTypes = {
-  dispatch: PropTypes.func.isRequired,
-  data: PropTypes.object,
+    dispatch: PropTypes.func.isRequired,
+    data: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({
-  data: makeSelectFirebaseData(),
+    data: makeSelectFirebaseData(),
 });
 
 export function mapDispatchToProps(dispatch) {
@@ -123,8 +124,8 @@ export function mapDispatchToProps(dispatch) {
 }
 
 const withConnect = connect(
-  mapStateToProps,
-  mapDispatchToProps,
+    mapStateToProps,
+    mapDispatchToProps,
 );
 
 const withReducer = injectReducer({ key: 'home', reducer });
