@@ -48,6 +48,7 @@ export class EditPage extends React.PureComponent {
     addNewEntry = () => {
         const { data, addScoreRemark, addScoreGroup, addScoreValue } = this.state;
         if (!addScoreValue || !addScoreGroup || !addScoreRemark) {
+            alert('资料不全');
             return null;
         }
 

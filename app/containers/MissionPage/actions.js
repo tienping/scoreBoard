@@ -1,6 +1,6 @@
 /*
  *
- * EditPage actions
+ * MissionPage actions
  *
  */
 

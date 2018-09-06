@@ -13,7 +13,7 @@ import 'antd/lib/row/style/css';
 import 'antd/lib/col/style/css';
 import 'antd/lib/list/style/css';
 import 'antd/lib/card/style/css';
-import './animate.css';
+import './../../utils/animate.css';
 
 /* eslint-disable react/prefer-stateless-function */
 class LogTable extends React.PureComponent {

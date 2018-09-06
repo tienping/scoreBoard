@@ -12,7 +12,7 @@ import styled from 'styled-components';
 import { Switch, Route } from 'react-router-dom';
 
 import HomePage from 'containers/HomePage/Loadable';
-import BackDropPage from 'containers/BackDropPage/Loadable';
+import MissionPage from 'containers/MissionPage/Loadable';
 import EditPage from 'containers/EditPage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import Header from 'components/Header';
@@ -37,7 +37,7 @@ export default function App() {
             <Switch>
                 <Route exact path="/" component={HomePage} />
                 <Route path="/edit" component={EditPage} />
-                <Route path="/backdrop" component={BackDropPage} />
+                <Route path="/mission" component={MissionPage} />
                 <Route path="" component={NotFoundPage} />
             </Switch>
             <Footer />
