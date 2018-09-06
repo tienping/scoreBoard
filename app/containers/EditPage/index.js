@@ -144,6 +144,8 @@ export class EditPage extends React.PureComponent {
                                     </div>
 
                                     <hr style={{ margin: '2rem 0' }}/>
+                                    <a href='/mission'>任务卡</a>
+                                    <hr style={{ margin: '2rem 0' }}/>
                                     <LogTable list={data.groups} />
                                 </Section>
                                 :
