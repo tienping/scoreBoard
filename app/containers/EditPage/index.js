@@ -102,6 +102,7 @@ export class EditPage extends React.PureComponent {
                                             }
                                         </div>
                                     </div>
+
                                     <hr style={{ margin: '2rem 0' }}/>
 
                                     <div style={{ margin: 'auto', width: '70%' }}>
@@ -143,9 +144,10 @@ export class EditPage extends React.PureComponent {
                                         >Submit</button>
                                     </div>
 
-                                    <hr style={{ margin: '2rem 0' }}/>
-                                    <a href='/mission'>任务卡</a>
-                                    <hr style={{ margin: '2rem 0' }}/>
+                                    <hr style={{ margin: '1.5rem 0' }}/>
+                                    <a style={{ padding: '0 1rem' }} href='/'>分数表</a>
+                                    <a style={{ padding: '0 1rem' }} href='/mission'>任务卡</a>
+                                    <hr style={{ margin: '1.5rem 0' }}/>
                                     <LogTable list={data.groups} />
                                 </Section>
                                 :
