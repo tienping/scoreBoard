@@ -77,7 +77,7 @@ export class BackDropPage extends React.PureComponent {
                                                 borderTop: '5px solid black',
                                             }}
                                         >
-                                            <div>
+                                            {/* <div>
                                                 <div className="score-value" style={{ color: groupColor[0], fontSize: 30, fontWeight: '700' }}>{data.groups[0].data[0]}</div>
                                                 <div>{data.groups[0].label}</div>
                                             </div>
@@ -92,7 +92,7 @@ export class BackDropPage extends React.PureComponent {
                                             <div>
                                                 <div className="score-value" style={{ color: groupColor[3], fontSize: 30, fontWeight: '700' }}>{data.groups[3].data[0]}</div>
                                                 <div>{data.groups[3].label}</div>
-                                            </div>
+                                            </div> */}
                                         </div>
                                     </div>
                                 </div>

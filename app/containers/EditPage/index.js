@@ -29,8 +29,8 @@ export class EditPage extends React.PureComponent {
     state = {
         data: {},
         addScoreRemark: '',
-        addScoreGroup: null,
-        addScoreValue: 0,
+        addScoreGroup: '',
+        addScoreValue: '',
     }
 
     componentWillMount() {
@@ -51,19 +51,23 @@ export class EditPage extends React.PureComponent {
             return null;
         }
 
+        const currentTime = new Date();
+
         this.props.dispatch(addEntry({
             groups: data.groups,
             addScoreRemark,
             addScoreGroup,
             addScoreValue,
             index: data && data.groups && data.groups[addScoreGroup] && data.groups[addScoreGroup].log && data.groups[addScoreGroup].log.length || 0,
+            date: currentTime.toLocaleString(),
+            time: `${currentTime.getHours()} : ${currentTime.getMinutes()}`,
         }));
         this.setState({ addScoreRemark: '' });
-        this.setState({ addScoreGroup: null });
-        this.setState({ addScoreValue: 0 });
+        this.setState({ addScoreGroup: '' });
+        this.setState({ addScoreValue: '' });
 
         if (addScoreGroupEl && addScoreGroupEl.selectedIndex) {
-            addScoreGroupEl.selectedIndex = 0
+            addScoreGroupEl.selectedIndex = 0;
         }
 
         return true;
@@ -90,8 +94,8 @@ export class EditPage extends React.PureComponent {
                                         </div>
                                         <div className="tableRow groupScore" style={{ background: 'lightgray' }}>
                                             {
-                                                data.groups.map((value, index) => (
-                                                    <MyTableCell className="groupScoreItem" key={index}>{value.data[0]}</MyTableCell>
+                                                data.groups.map((group, index) => (
+                                                    <MyTableCell className="groupScoreItem" key={index}>{group.y}</MyTableCell>
                                                 ))
                                             }
                                         </div>
@@ -103,14 +107,24 @@ export class EditPage extends React.PureComponent {
                                             <div style={{ flex: 3 }}>Group:</div>
                                             {/* <input id="addScoreGroup" onChange={(event) => { this.setState({addScoreGroup: event.target.value}); }}  value={this.state.addScoreGroup} style={{ flex: 7, marginLeft: 10, border: '1px solid lightgray' }} type="text"/> */}
                                             <div style={{ flex: 7, marginLeft: 10, border: '1px solid lightgray' }}>
-                                                <select id="addScoreGroupEl" onChange={(event) => { this.setState({addScoreGroup: event.target.value}); }} value={this.state.addScoreGroup} style={{ width: '100%' }}>
-                                                    <option value="">Select</option>
-                                                    {
-                                                        data.groups.map((value, index) => (
-                                                            <option key={index} value={index}>{value.label}</option>
-                                                        ))
-                                                    }
-                                                </select>
+                                                {
+                                                    data.groups && data.groups.length ?
+                                                        <select
+                                                            id="addScoreGroupEl"
+                                                            onChange={(event) => { this.setState({addScoreGroup: event.target.value}); }}
+                                                            value={this.state.addScoreGroup}
+                                                            style={{ width: '100%' }}
+                                                        >
+                                                            <option value="">Select</option>
+                                                            {
+                                                                data.groups.map((value, index) => (
+                                                                    <option key={index} value={index}>{value.label}</option>
+                                                                ))
+                                                            }
+                                                        </select>
+                                                        :
+                                                        null
+                                                }
                                             </div>
                                         </div>
                                         <div style={{ display: 'flex', flexDirection: 'row', padding: '3px 10px' }}>

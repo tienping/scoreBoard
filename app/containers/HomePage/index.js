@@ -15,10 +15,9 @@ import { createStructuredSelector } from 'reselect';
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
 
-import { Chart, Bars } from 'rumble-charts';
-
 import CenteredSection from 'components/CenteredSection';
 import LogTable from 'components/LogTable';
+import BarChart from 'components/BarChart';
 import { makeSelectFirebaseData } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -56,7 +55,7 @@ export class HomePage extends React.PureComponent {
                         {
                             data && data.groups ?
                                 <div>
-                                    <div>
+                                    {/* <div>
                                         <Chart width={chartWidth} height={250} series={data.groups} minY={0}>
                                             <Bars
                                                 colors={groupColor}
@@ -82,13 +81,16 @@ export class HomePage extends React.PureComponent {
                                             data.groups && data.groups.length ?
                                                 data.groups.map((group, index) => (
                                                     <div>
-                                                        <div className="score-value" style={{ color: groupColor[index], fontSize: 30, fontWeight: '700' }}>{group.data[0]}</div>
+                                                        <div className="score-value" style={{ color: groupColor[index], fontSize: 30, fontWeight: '700' }}>{group.y}</div>
                                                         <div>{group.label}</div>
                                                     </div>
                                                 ))
                                                 :
                                                 <div>No group found</div>
                                         }
+                                    </div> */}
+                                    <div style={{ marginRight: '30' }}>
+                                        <BarChart list={data.groups} />
                                     </div>
                                 </div>
                                 :
@@ -97,9 +99,16 @@ export class HomePage extends React.PureComponent {
                                 </div>
                         }
 
-                        <hr style={{ margin: '10% 0' }} />
+                        {/* <hr style={{ margin: '10% 0' }} /> */}
 
-                        <LogTable list={data.groups} />
+                        {
+                            data.groups ?
+                                <div style={{ padding: '0 5%' }}>
+                                    <LogTable list={data.groups} />
+                                </div>
+                                :
+                                null
+                        }
 
                     </CenteredSection>
                 </div>
@@ -110,7 +119,7 @@ export class HomePage extends React.PureComponent {
 
 HomePage.propTypes = {
     dispatch: PropTypes.func.isRequired,
-    data: PropTypes.object,
+    data: PropTypes.string,
 };
 
 const mapStateToProps = createStructuredSelector({
