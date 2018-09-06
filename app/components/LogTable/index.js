@@ -45,7 +45,7 @@ class LogTable extends React.PureComponent {
                                                     }}
                                                 >
                                                     <div className="demo-loading-container" style={{  }}>
-                                                        <div style={{ fontWeight: 700, fontSize: 18, color: item.value && item.value > 0 ? '#0C0' : '#F00', }}>{`${ item.value && item.value > 0 ? '+' : ''}${item.value || 0}`}</div>
+                                                        <div style={{ fontWeight: 700, fontSize: 18, color: item.value && item.value > 0 ? '#0C0' : '#F00' }}>{`${ item.value && item.value > 0 ? '+' : ''}${item.value || 0}`}</div>
                                                         <div style={{ fontSize: '70%' }}>{item.message || ''}</div>
                                                     </div>
                                                 </List.Item>

@@ -35,7 +35,7 @@ export class HomePage extends React.PureComponent {
         function updateData(snapshot) {
             _this.setState({ data: snapshot.val() });
         }
-        dataRef.on('value', function (snapshot) {
+        dataRef.on('value', (snapshot) => {
             if (snapshot.exists()) {
                 updateData(snapshot);
             }
@@ -132,7 +132,7 @@ const withReducer = injectReducer({ key: 'home', reducer });
 const withSaga = injectSaga({ key: 'home', saga });
 
 export default compose(
-  withReducer,
-  withSaga,
-  withConnect,
+    withReducer,
+    withSaga,
+    withConnect,
 )(HomePage);
