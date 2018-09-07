@@ -44,13 +44,13 @@ class LogTable extends React.PureComponent {
                                                                     margin: '2% 0',
                                                                     padding: '2% 5%',
                                                                     border: '1px solid #BBB',
-                                                                    borderLeft: `5px solid ${log.value && log.value > 0 ? '#0C0' : '#F00'}`,
+                                                                    borderLeft: `5px solid ${log.value && log.value > 0 ? 'darkgreen' : '#F00'}`,
                                                                 }}
                                                             >
                                                                 <div className="" style={{  }}>
-                                                                    <div style={{ fontWeight: 700, fontSize: 12, color: log.value && log.value > 0 ? '#0C0' : '#F00' }}>{`${ log.value && log.value > 0 ? '+' : ''}${log.value || 0}`}</div>
-                                                                    <div style={{ fontSize: '70%', color: 'black' }}>{log.message || ''}</div>
-                                                                    <div style={{ fontSize: '70%', color: '#AAA', position: 'absolute', top: 5, right: 5 }}>{log.time || ''}</div>
+                                                                    <div style={{ fontWeight: 700, fontSize: '170%', color: log.value && log.value > 0 ? '040' : '#F00' }}>{`${ log.value && log.value > 0 ? '+' : ''}${log.value || 0}`}</div>
+                                                                    <div style={{ fontSize: '150%', color: 'black' }}>{log.message || ''}</div>
+                                                                    <div style={{ fontSize: '100%', color: '#AAA', position: 'absolute', top: 5, right: 5 }}>{log.time || ''}</div>
                                                                 </div>
                                                             </div>
                                                         ))

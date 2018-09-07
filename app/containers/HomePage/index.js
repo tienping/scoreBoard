@@ -55,41 +55,7 @@ export class HomePage extends React.PureComponent {
                         {
                             data && data.groups ?
                                 <div>
-                                    {/* <div>
-                                        <Chart width={chartWidth} height={250} series={data.groups} minY={0}>
-                                            <Bars
-                                                colors={groupColor}
-                                                groupPadding='10%'
-                                                innerPadding='10%'
-                                            />
-                                        </Chart>
-                                    </div>
-                                    <div
-                                        style={{
-                                            width: chartWidth,
-                                            display: 'flex',
-                                            flexDirection: 'row',
-                                            justifyContent: 'space-around',
-                                            padding: '10px 3%',
-                                            margin: '0px auto',
-                                            left: '0',
-                                            right: '0',
-                                            borderTop: '5px solid black',
-                                        }}
-                                    >
-                                        {
-                                            data.groups && data.groups.length ?
-                                                data.groups.map((group, index) => (
-                                                    <div>
-                                                        <div className="score-value" style={{ color: groupColor[index], fontSize: 30, fontWeight: '700' }}>{group.y}</div>
-                                                        <div>{group.label}</div>
-                                                    </div>
-                                                ))
-                                                :
-                                                <div>No group found</div>
-                                        }
-                                    </div> */}
-                                    <div style={{ marginRight: '30' }}>
+                                    <div style={{ marginRight: '30', padding: '0 20%' }}>
                                         <BarChart list={data.groups} />
                                     </div>
                                 </div>
@@ -101,16 +67,16 @@ export class HomePage extends React.PureComponent {
 
                         {/* <hr style={{ margin: '10% 0' }} /> */}
 
-                        {
-                            data.groups ?
-                                <div style={{ padding: '0 5%' }}>
-                                    <LogTable list={data.groups} />
-                                </div>
-                                :
-                                null
-                        }
-
                     </CenteredSection>
+
+                    {
+                        data.groups ?
+                            <div style={{ padding: '0 5%' }}>
+                                <LogTable list={data.groups} />
+                            </div>
+                            :
+                            null
+                    }
                 </div>
             </article>
         );

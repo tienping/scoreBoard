@@ -24,12 +24,14 @@ class BarChart extends React.PureComponent {
 
     render() {
         const options= {
+            height: 200,
             animationEnabled: true,
             theme: "light1", // "light1", "dark1", "dark2"
             title: {
                 // text: "Worpress Featured Plugins",
             },
             axisX:{
+                labelFontSize: 25,
                 reversed: true,
             },
             data: [{
@@ -37,7 +39,7 @@ class BarChart extends React.PureComponent {
                 // indexLabel: "{y}", //Shows y value on all Data Points
                 indexLabel: "{y}",
                 indexLabelFontColor: "black",
-                indexLabelFontSize: 20,
+                indexLabelFontSize: 30,
                 dataPoints: this.state.data,
                 // dataPoints: this.props.list,
             }],
