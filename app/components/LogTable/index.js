@@ -31,31 +31,31 @@ class LogTable extends React.PureComponent {
                                     <Col span={6} key={index} style={{ padding: '1% 3%' }}>
                                         <h3 style={{ borderBottom: '2px solid black', paddingBottom: '0.2rem', marginBottom: '1rem' }}>{group.label}</h3>
                                         {
-                                            group.log ?
-                                                <List
-                                                    style={{  }}
-                                                    grid={{ gutter: 16, xs: 1, sm: 1, md: 1, lg: 1, xl: 1, xxl: 1 }}
-                                                    dataSource={group.log.reverse()}
-                                                    renderItem={(item, index) => (
-                                                        <List.Item
-                                                            // className="animated rubberBand"
-                                                            style={{
-                                                                textAlign: 'left',
-                                                                background: 'white',
-                                                                margin: '2% 0',
-                                                                padding: '2% 5%',
-                                                                border: '1px solid #BBB',
-                                                                borderLeft: `5px solid ${item.value && item.value > 0 ? '#0C0' : '#F00'}`,
-                                                            }}
-                                                        >
-                                                            <div className="demo-loading-container" style={{  }}>
-                                                                <div style={{ fontWeight: 700, fontSize: 12, color: item.value && item.value > 0 ? '#0C0' : '#F00' }}>{`${ item.value && item.value > 0 ? '+' : ''}${item.value || 0}`}</div>
-                                                                <div style={{ fontSize: '70%', color: 'black' }}>{item.message || ''}</div>
-                                                                <div style={{ fontSize: '70%', color: '#AAA', position: 'absolute', top: 5, right: 5 }}>{item.time || ''}</div>
+                                            group.log && group.log.length ?
+                                                <div style={{ display: 'flex', flexDirection: 'column-reverse' }} >
+                                                    {
+                                                        group.log.map((log, index) => (
+                                                            <div
+                                                                key={index}
+                                                                className="animated rubberBand"
+                                                                style={{
+                                                                    textAlign: 'left',
+                                                                    background: 'white',
+                                                                    margin: '2% 0',
+                                                                    padding: '2% 5%',
+                                                                    border: '1px solid #BBB',
+                                                                    borderLeft: `5px solid ${log.value && log.value > 0 ? '#0C0' : '#F00'}`,
+                                                                }}
+                                                            >
+                                                                <div className="" style={{  }}>
+                                                                    <div style={{ fontWeight: 700, fontSize: 12, color: log.value && log.value > 0 ? '#0C0' : '#F00' }}>{`${ log.value && log.value > 0 ? '+' : ''}${log.value || 0}`}</div>
+                                                                    <div style={{ fontSize: '70%', color: 'black' }}>{log.message || ''}</div>
+                                                                    <div style={{ fontSize: '70%', color: '#AAA', position: 'absolute', top: 5, right: 5 }}>{log.time || ''}</div>
+                                                                </div>
                                                             </div>
-                                                        </List.Item>
-                                                    )}
-                                                />
+                                                        ))
+                                                    }
+                                                </div>
                                                 :
                                                 null
                                         }
